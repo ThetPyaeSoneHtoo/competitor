@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <f:metadata>
+
+    </f:metadata>
+    <ui:define name="head-end">
+        <meta name="viewport" content="width=device-width"/>
+        <h:outputStylesheet library="css" name="competitor_datatable_style.css"/> 
+        <style type="text/css">
+
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+            div.ui-dialog-titlebar.ui-dialog-titlebar.ui-widget-header{
+                background-color:  #ecf0f5!important;
+            }
+
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+        Plant Form
+    </ui:define>
+
+    <ui:define name="description">
+    </ui:define>
+    <ui:define name="body">
+        <adm:breadcrumb title="Plant" link="/view/entryform/plantForm.xhtml"/>
+        <div class="box box-primary" style="border:white">
+            <div class="box-header with-border">
+                
+                <h:form enctype="multipart/form-data">
+                    <p:panel style="-moz-border-radius: 25px!important; -webkit-border-radius: 25px!important;">
+                    <div align="right" class="ui-g"> 
+                        <p:spacer width="1"/>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                <div class="ui-g-12 ui-md-2 ui-lg-3"><p:outputLabel value="Plant Name:"/></div>
+                                <div class="ui-g-12 ui-md-4 ui-lg-3 ui-fluid"><p:inputText /></div>
+                            
+                                <div class="ui-g-12 ui-md-2 ui-lg-2"><p:outputLabel value="Company Name:"/></div>
+                                <div class="ui-g-12 ui-md-4 ui-lg-3 ui-fluid"><p:selectOneMenu value="" filter="false" label="Please Select Module:" required="true"> 
+                                        <f:selectItem   itemLabel="Pan United" itemValue=""/> 
+                                        <f:selectItem  itemLabel="Island" itemValue=""/>
+                                        <f:selectItem  itemLabel="Alliance" itemValue=""/> 
+                                        <f:selectItem  itemLabel="Select Company" itemValue=""/> 
+                                    </p:selectOneMenu></div>
+                            
+                            
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            
+                                <div class="ui-g-12 ui-md-2 ui-lg-3"><p:outputLabel value="Location Name:"/></div>
+                                <div class="ui-g-12 ui-md-4 ui-lg-3 ui-fluid"><p:selectOneMenu value="" filter="false" label="Please Select Module:" required="true"> 
+                                        <f:selectItem   itemLabel="Sungei Kadut" itemValue=""/> 
+                                        <f:selectItem   itemLabel="Thomson" itemValue=""/>
+                                        <f:selectItem   itemLabel="East Coast" itemValue=""/>
+                                        <f:selectItem   itemLabel="Marina East" itemValue=""/> 
+                                        <f:selectItem   itemLabel="Marina Centre" itemValue=""/>
+                                        <f:selectItem   itemLabel="Marina View" itemValue=""/> 
+                                        <f:selectItem   itemLabel="Jurong Island" itemValue=""/> 
+                                        <f:selectItem   itemLabel="Tuas Centre" itemValue=""/>
+                                        <f:selectItem   itemLabel="Punggol" itemValue=""/> 
+                                        <f:selectItem   itemLabel="Pasir Ris" itemValue=""/> 
+                                        <f:selectItem   itemLabel="Bedok" itemValue=""/>
+                                        <f:selectItem   itemLabel="Tanah Merah" itemValue=""/>  
+                                        <f:selectItem   itemLabel="Airport" itemValue=""/>
+                                        <f:selectItem   itemLabel="Select Location" itemValue=""/> 
+                                    </p:selectOneMenu></div>
+                            
+                                <div class="ui-g-12 ui-md-2 ui-lg-2"><p:outputLabel value="Status:"/></div>
+                                <div class="ui-g-12 ui-md-4 ui-lg-3 ui-fluid"><p:selectOneMenu value="" filter="false" label="Please Select Module:" required="true"> 
+                                        <f:selectItem   itemLabel="Active" itemValue=""/> 
+                                        <f:selectItem   itemLabel="InActive" itemValue=""/>
+                                        <f:selectItem   itemLabel="Select Status" itemValue=""/>
+                                    </p:selectOneMenu></div>
+                            
+                            
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            
+                                <div class="ui-g-12 ui-md-2 ui-lg-3"><p:outputLabel value="Longitude:"/></div>
+                                <div class="ui-g-12 ui-md-4 ui-lg-3 ui-fluid"><p:inputText /></div>
+                            
+                            
+                                <div class="ui-g-12 ui-md-2 ui-lg-2"><p:outputLabel value="Latitude:"/></div>
+                                <div class="ui-g-12 ui-md-4 ui-lg-3 ui-fluid"><p:inputText /></div>
+                            
+                            
+                        </div>
+                        
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            
+                                <div class="ui-g-12 ui-md-2 ui-lg-3"><p:outputLabel value="Period:"/></div>
+                                <div class="ui-g-12 ui-md-4 ui-lg-3 ui-fluid"><p:inputText /></div>
+                        </div>
+                    </div>
+                    <p:spacer width="1"/>
+                    <p:separator style="display:none"/>
+                    <div class="ui-g ui-fluid" id="buttons">
+                        <div class="ui-g-12 ui-md-4 ui-lg-3" style="margin: 0 auto">
+                            <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                <p:commandButton value="Save" styleClass="btn-primary fa fa-save" />
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                <p:commandButton value="Reset"  styleClass="btn-info fa fa-undo" />
+                            </div>
+                        </div>
+                    </div>
+                    </p:panel>
+
+                     <p:separator />
+                    <p:dataTable value ="" id="plantTable" widgetVar="plantTable" paginator="true" paginatorPosition="bottom" reflow="true" tableStyle="table-layout:auto"
+                                 editable="true" editMode="cell"
+                                 rowKey="#{data.id}" >
+                        <f:facet name="header">
+                            <div class="ui-g">
+                                <div class="ui-lg-6" align="left">
+
+                                </div>
+                                <div class="ui-lg-6" align="right">
+                                    <p:outputLabel value="Search :" style="margin-top: 5px!important"/>
+                                    <p:inputText id="globalFilter" style="width:200px;margin-right: -19px" onkeypress="if (event.keyCode === 13) {
+                                                PF('plantTable').filter();
+                                            }"  placeholder="Enter keyword to search">
+                                    </p:inputText>
+                                </div>
+                            </div>
+                        </f:facet>
+                        <p:column headerText="No.">
+                            <h:outputText value="1">
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Plant Name">
+                            <h:outputText value="ABC Plant">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Company Name">
+                            <h:outputText value="Pan United">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Location">
+                            <h:outputText value="Sungei Kadutt">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Status">
+                            <h:outputText value="Active">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Latitude">
+                            <h:outputText value="1.352083">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Longitute">
+                            <h:outputText value="103.819839">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Edit">
+                            <p:commandButton icon="fa fa-pencil" id="editDeptBtn"  
+                                             ajax="true"  styleClass="btn-primary datatablebutton" style=" display: block; margin: 0 auto;"/>
+                        </p:column>
+                        <p:column headerText="Delete">
+
+                            <p:commandButton  icon="fa fa-trash" styleClass="btn-danger datatablebutton" style=" display: block; margin: 0 auto;">
+                                <p:confirm header="Confirmation" message="Are you sure to Delete?" icon="ui-icon-alert" />
+                            </p:commandButton>
+
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+                
+                <p:confirmDialog style="position: fixed " global="true" showEffect="fade" hideEffect="fade" styleClass="box-danger">
+                    <p:commandButton value="Yes" type="button" styleClass="btn-primary ui-confirmdialog-yes"
+                                     icon="fa fa-check"/>
+                    <p:commandButton value="No" type="button" styleClass="btn-danger ui-confirmdialog-no"
+                                     icon="fa fa-close"/>
+                </p:confirmDialog>
+
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

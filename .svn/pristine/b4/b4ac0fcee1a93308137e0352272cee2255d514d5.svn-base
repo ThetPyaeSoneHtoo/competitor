@@ -1,0 +1,190 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.github.adminfaces.starter.bean;
+
+import com.github.adminfaces.starter.model.MapData;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+
+/**
+ *
+ * @author SSMin
+ */
+@ManagedBean(name = "mapMB")
+public class MapMB implements Serializable {
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private List<MapData> mapDataList;
+    private List<String> companyList;
+    private List<String> capabilites;
+    private boolean panu_render;
+    private boolean island_render;
+    private boolean alliance_render;
+    private boolean ytl_render;
+    private boolean samwoh_render;
+    private boolean simix_render;
+    private List<String> company;
+
+    @PostConstruct
+    public void init() {
+        company = new ArrayList<String>();
+        panu_render = true;
+        island_render = true;
+        alliance_render = true;
+        ytl_render = true;
+        samwoh_render = true;
+        simix_render = true;
+        capabilites = new ArrayList<String>();
+        capabilites.add("LSS");
+        capabilites.add("Grade");
+        companyList = new ArrayList<String>();
+        companyList.add("PAN UNITED");
+        companyList.add("ISLAND");
+        companyList.add("ALLIANCE");
+        companyList.add("YTL");
+        companyList.add("SAMWOH");
+        companyList.add("SIMIX");
+
+        mapDataList = new ArrayList<MapData>();
+        MapData mapData = new MapData();
+        mapData.setBatchingPlantLocation("Sungei Kadut");
+        mapData.setLatitude("123.13242");
+        mapData.setLongitude("435.34534");
+        mapData.setBatchingCapacity("4");
+        mapData.setNoOfTrack("2");
+        mapData.setNoOfBatchingPlant("5");
+        mapDataList.add(mapData);
+
+        mapData = new MapData();
+        mapData.setBatchingPlantLocation("Thomson");
+        mapData.setLatitude("924.234");
+        mapData.setLongitude("675.3453");
+        mapData.setBatchingCapacity("7");
+        mapData.setNoOfTrack("3");
+        mapData.setNoOfBatchingPlant("8");
+        mapDataList.add(mapData);
+
+    }
+
+    public void companySelect() {
+        if (!company.isEmpty()) {
+            panu_render = false;
+            island_render = false;
+            alliance_render = false;
+            ytl_render = false;
+            samwoh_render = false;
+            simix_render = false;
+            for (int i = 0; i < company.size(); i++) {
+                if (company.get(i).equals("PAN UNITED")) {
+                    panu_render = true;
+
+                }
+                if (company.get(i).equals("ISLAND")) {
+                    island_render = true;
+                }
+                if (company.get(i).equals("ALLIANCE")) {
+                    alliance_render = true;
+                }
+                if (company.get(i).equals("YTL")) {
+                    ytl_render = true;
+                }
+                if (company.get(i).equals("SAMWOH")) {
+                    samwoh_render = true;
+                }
+                if (company.get(i).equals("SIMIX")) {
+                    simix_render = true;
+                }
+            }
+        }
+    }
+
+    public boolean isAlliance_render() {
+        return alliance_render;
+    }
+
+    public void setAlliance_render(boolean alliance_render) {
+        this.alliance_render = alliance_render;
+    }
+
+    public boolean isYtl_render() {
+        return ytl_render;
+    }
+
+    public void setYtl_render(boolean ytl_render) {
+        this.ytl_render = ytl_render;
+    }
+
+    public boolean isSamwoh_render() {
+        return samwoh_render;
+    }
+
+    public void setSamwoh_render(boolean samwoh_render) {
+        this.samwoh_render = samwoh_render;
+    }
+
+    public boolean isSimix_render() {
+        return simix_render;
+    }
+
+    public void setSimix_render(boolean simix_render) {
+        this.simix_render = simix_render;
+    }
+    
+    public List<MapData> getMapDataList() {
+        return mapDataList;
+    }
+
+    public void setMapDataList(List<MapData> mapDataList) {
+        this.mapDataList = mapDataList;
+    }
+
+    public List<String> getCompanyList() {
+        return companyList;
+    }
+
+    public void setCompanyList(List<String> companyList) {
+        this.companyList = companyList;
+    }
+
+    public boolean isPanu_render() {
+        return panu_render;
+    }
+
+    public void setPanu_render(boolean panu_render) {
+        this.panu_render = panu_render;
+    }
+
+    public List<String> getCompany() {
+        return company;
+    }
+
+    public void setCompany(List<String> company) {
+        this.company = company;
+    }
+
+    public boolean isIsland_render() {
+        return island_render;
+    }
+
+    public void setIsland_render(boolean island_render) {
+        this.island_render = island_render;
+    }
+
+    public List<String> getCapabilites() {
+        return capabilites;
+    }
+
+    public void setCapabilites(List<String> capabilites) {
+        this.capabilites = capabilites;
+    }
+    
+}

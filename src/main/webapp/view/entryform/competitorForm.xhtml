@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <f:metadata>
+
+    </f:metadata>
+    <ui:define name="head-end">
+
+    </ui:define>
+
+    <ui:define name="title">
+        Competitor Information Form
+    </ui:define>
+
+    <ui:define name="description">
+    </ui:define>
+    <ui:define name="body">
+        <adm:breadcrumb title="Competitor" link="/view/entryform/competitorForm.xhtml"/>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <h:outputStylesheet library="css" name="competitor_datatable_style.css"/>
+        <style type="text/css">
+
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+            div.ui-dialog-titlebar.ui-dialog-titlebar.ui-widget-header{
+                background-color:  #ecf0f5!important;
+            }
+            span.ui-chkbox-label{
+                font-weight: bold !important;
+            }
+
+        </style>
+        <div class="box box-primary" style="border:white">
+            <div class="box-header with-border">
+                <div>
+                    <h:form id="haha" enctype="multipart/form-data">
+
+                        <p:panel style="-moz-border-radius: 25px!important; -webkit-border-radius: 25px!important;">
+                            <div align="right" class="ui-g">
+                                <p:spacer width="1"/>
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <div class="ui-g-12 ui-md-6 ui-lg-12">
+                                        <div class="ui-g-12 ui-md-12 ui-lg-4" style="margin-top: 0.6em"><p:outputLabel value="Company:"/></div>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-3 ui-fluid"><div class="ui-g-12 ui-md-12 ui-lg-12"><p:selectOneMenu value="" filter="false" label="Please Select Module:" required="true"> 
+                                                <f:selectItem  itemLabel="Select Company"  noSelectionOption="true"/> 
+                                                <f:selectItem   itemLabel="Pan United" itemValue="P"/> 
+                                                <f:selectItem  itemLabel="Island" itemValue="I"/>
+                                                <f:selectItem  itemLabel="Alliance" itemValue="A"/>
+                                            </p:selectOneMenu></div></div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-12">
+                                        <div class="ui-g-12 ui-md-12 ui-lg-4" style="margin-top: 0.6em"><p:outputLabel value="Period:"/></div>
+                                        <div class="ui-g-12 ui-md-6 ui-lg-2 ui-fluid"><div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <p:selectOneMenu value="" filter="false" label="Please Select Module:" required="true"> 
+                                                <f:selectItem  itemLabel="Select Period"  noSelectionOption="true"/> 
+                                                <f:selectItem   itemLabel="Jan-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="Feb-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="Mar-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="Apr-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="May-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="Jun-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="Jul-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="Aug-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="Sep-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="Oct-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="Nov-2018" itemValue="P"/>
+                                                <f:selectItem   itemLabel="Dec-2018" itemValue="P"/>>
+                                            </p:selectOneMenu></div></div>
+                                        <div class="ui-g-12 ui-md-6 ui-lg-3 ui-fluid"><div class="ui-g-12 ui-md-12 ui-lg-6"><p:commandButton value="Copy Period"  styleClass="btn-primary" onclick="PF('dlgofconfirm').show();"/></div></div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </p:panel>
+
+                        <p:separator />
+                        <p:dataTable styleClass="edittable" value="#{comeptitorEntryForm.competitorData}" var="data" paginator="true" paginatorPosition="bottom" reflow="true" tableStyle="table-layout:auto"
+                                     currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]" editable="true" editMode="cell"
+                                     rowKey="#{data.id}">
+
+
+                            <p:column headerText="Batching Plant Location">
+
+                                <h:outputText value="#{data.batching_plant_location}" />
+                            </p:column>
+                            <p:column headerText="No. of Batching">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{data.no_of_batching}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{data.no_of_batching}" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Zone" >
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{data.zone}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu value="#{data.zone}">
+                                            <f:selectItem itemLabel="Select One" itemValue="" />
+                                            <f:selectItem itemLabel="South" itemValue="South" />
+                                            <f:selectItem itemLabel="North" itemValue="North" />
+                                            <f:selectItem itemLabel="East" itemValue="East" />
+                                            <f:selectItem itemLabel="West" itemValue="West" />
+                                            <f:selectItem itemLabel="Center" itemValue="Center"/>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column >
+                            <p:column headerText="No. of Track">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{data.no_of_truck}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{data.no_of_truck}" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Plant Capacity (m3/h)">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{data.plant_capacity}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{data.plant_capacity}" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Volume per month">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{data.volume_per_month}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{data.volume_per_month}" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="HDB Approve">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{data.zone}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu value="#{data.zone}">
+                                            <f:selectItem itemLabel="Select One" itemValue="" />
+                                            <f:selectItem itemLabel="Yes" itemValue="Yes" />
+                                            <f:selectItem itemLabel="No" itemValue="No" />
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Lease Period From">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{data.zone}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:calendar placeholder="dd-MMM-yyyy" pattern="dd-MMM-yyyy">
+
+                                        </p:calendar>
+                                    </f:facet>
+                                </p:cellEditor>
+
+                            </p:column>
+                            <p:column headerText="Lease Period To">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{data.zone}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:calendar placeholder="dd-MMM-yyyy" pattern="dd-MMM-yyyy">
+
+                                        </p:calendar>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="TOL Detail">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{data.tot_detail}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputTextarea value="#{data.tot_detail}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Supported By">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{data.supported_by}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{data.supported_by}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Capabilities" > 
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{data.supported_by}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:selectCheckboxMenu id="multiple" value="#{mapMB.company}" label="Cities" multiple="true"
+                                                              filter="false" filterMatchMode="startsWith" panelStyle="width:250px">
+                                            <f:selectItems value="#{mapMB.capabilites}" /></p:selectCheckboxMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Map Location">
+                                <p:commandButton styleClass="btn-success datatablebutton" style=" display: block; margin: 0 auto;" icon="fa fa-map-marker" onclick="PF('dlg').show();"/>
+                            </p:column>
+                            <p:column headerText="Upload" >
+                                <p:commandButton styleClass="btn-primary datatablebutton" style=" display: block; margin: 0 auto;" icon="fa fa-upload" onclick="PF('updlg').show();"/>
+                            </p:column>
+                            <p:column headerText="Delete">
+                                <p:commandButton  icon="fa fa-trash" styleClass="btn-danger datatablebutton" style=" display: block; margin: 0 auto;" >
+                                    <p:confirm header="Confirmation" message="Are you sure to Delete?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12"/>
+                        <p:spacer width="10"/>
+                        <div class="ui-g ui-fluid" id="buttons">
+                            <div class="ui-g-12 ui-md-8 ui-lg-4"></div>
+                            <div class="ui-g-12 ui-md-4 ui-lg-3">
+                                <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                    <p:commandButton value="Save" styleClass="btn-primary fa fa-save" />
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                    <p:commandButton value="Reset"  styleClass="btn-info fa fa-undo" />
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                    <p:dialog id="dlgshit" widgetVar="dlgshit" width="625" height="400" modal="true" appendTo="@(body)">
+                        <p:inputText id="shit" value="#{comeptitorEntryForm.date}"/>
+                    </p:dialog>
+                    <p:dialog id="gmapDialog" widgetVar="dlg" width="625" height="400" modal="true" appendTo="@(body)">
+                        <p:gmap id="gmap" center="1.418,103.751004" zoom="15" type="HYBRID" style="width:100%;height:400px" />
+                    </p:dialog>
+                    <p:dialog header="Upload Files" id="updlg" widgetVar="updlg" width="625" height="400" modal="true" appendTo="@(body)">
+                        <h:form>
+
+                            <p:spacer width ="20"/>
+                            <p:fileUpload  mode="advanced" auto="true" allowTypes="/(\.|\/)(pdf|doc?g|docx|xls|xlsx|csv|txt|rtf|html|jpg|jpeg|png|gif|pptx|ppt)$/" />
+                            <p:spacer width ="20"/>
+                            <div class="ui-g">
+                                <div class="ui-g-4">
+                                    some_file.txt
+                                </div>
+                                <div class="ui-g-2">
+                                    <p:commandButton styleClass="btn-primary" icon="fa fa-download" />
+                                </div>
+                                <div class="ui-g-2">
+                                    <p:commandButton styleClass="btn-danger" icon="fa fa-remove" />
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-4">
+                                    some_image.png
+                                </div>
+                                <div class="ui-g-2">
+                                    <p:commandButton styleClass="btn-primary " icon="fa fa-download" />
+                                </div>
+                                <div class="ui-g-2">
+                                    <p:commandButton styleClass="btn-danger" icon="fa fa-remove" />
+                                </div>
+                            </div>
+                        </h:form>
+                    </p:dialog>
+                    <p:dialog id="dialog" widgetVar="dialog"  
+                              header="Select Related Tasks" modal="true"  
+                              hideEffect="explode" appendTo="@(body)"  
+                              resizable="false" draggable="false" positionType="absolute"
+                              closeOnEscape="true" responsive="true" fitViewport="true"> 
+                        <h:form>
+                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                <p:selectManyCheckbox id="basic" value="#{comeptitorEntryForm.competitorData}">
+                                    <f:selectItem itemLabel="LSS" itemValue="LSS" />
+                                    <f:selectItem itemLabel="RCA" itemValue="RCA" />
+                                </p:selectManyCheckbox>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-12"/>
+                            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                <p:commandButton value="Select" styleClass="btn-success" onclick="PF('dialog').hide()"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                <p:commandButton value="Close" styleClass="btn-danger" onclick="PF('dialog').hide()"/>
+                            </div>
+                        </h:form>
+                    </p:dialog>
+                    <p:dialog id="dlgofconfirm" widgetVar="dlgofconfirm" modal="true" appendTo="@(body)" resizable="false" draggable="false" positionType="absolute"
+                              closeOnEscape="true" header="Copy from Period">
+                        <h:form id="lolform">
+                            <div class="ui-g-12">
+                                <div class="ui-g-3" style="margin-top: 0.6em"><p:outputLabel id="loldata" value="Copy Period" /></div>
+                                <div class="ui-g-6 ui-fluid"><p:selectOneMenu value="" filter="false" label="Please Select Module:" required="true"> 
+                                        <f:selectItem   itemLabel="Jun-2018" itemValue="P"/>        
+                                        <f:selectItem  itemLabel="Select Period"  noSelectionOption="true"/> 
+                                        <f:selectItem   itemLabel="Jan-2018" itemValue="P"/>
+                                        <f:selectItem   itemLabel="Feb-2018" itemValue="P"/>
+                                        <f:selectItem   itemLabel="Mar-2018" itemValue="P"/>
+                                        <f:selectItem   itemLabel="Apr-2018" itemValue="P"/>
+                                        <f:selectItem   itemLabel="May-2018" itemValue="P"/>
+
+                                        <f:selectItem   itemLabel="Jul-2018" itemValue="P"/>
+                                        <f:selectItem   itemLabel="Aug-2018" itemValue="P"/>
+                                        <f:selectItem   itemLabel="Sep-2018" itemValue="P"/>
+                                        <f:selectItem   itemLabel="Oct-2018" itemValue="P"/>
+                                        <f:selectItem   itemLabel="Nov-2018" itemValue="P"/>
+                                        <f:selectItem   itemLabel="Dec-2018" itemValue="P"/>
+                                    </p:selectOneMenu></div>
+                            </div>
+                            <div class="ui-g-12 ui-fluid">
+                                <div class="ui-g-3"></div>
+                                <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                    <p:commandButton value="Copy" styleClass="btn-primary" onclick="PF('dlgofconfirm').hide()"/>
+                                </div>
+                                <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                    <p:commandButton value="Cancel" styleClass="btn-danger" onclick="PF('dlgofconfirm').hide()"/>
+                                </div>
+                            </div>
+                        </h:form>
+                    </p:dialog>
+                    <p:dialog id="legalIssueDialog" widgetVar="legalIssueDialog"  
+                              header="Legal Issue" modal="true"  
+                              hideEffect="explode" appendTo="@(body)"  
+                              resizable="false" draggable="false" positionType="absolute"  
+                              closeOnEscape="true" width="40%" height="40%" responsive="true" fitViewport="true">  
+                        <h:form onkeypress="if (event.keyCode === 13) {
+                                    return false;
+                                }" >  
+                            <div class="ui-g ">
+                                <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                    <p:outputLabel value="Company"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-3 ui-lg-6 ui-fluid">
+                                    <p:inputText value="" placeholder="Company Name"/>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                    <p:outputLabel value="Year of Lodge"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                    <p:inputText value="" placeholder="Year of Lodge"/>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-2 ui-lg-3">
+                                    <p:outputLabel value="Court Type"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-3 ui-lg-6 ui-fluid">
+                                    <p:selectOneMenu value="#{data.zone}">
+                                        <f:selectItem itemLabel="Select Court Type" itemValue="" />
+                                        <f:selectItem itemLabel="Supreme Court" itemValue="South" />
+                                        <f:selectItem itemLabel="Subordinate Court" itemValue="North" />
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-3"/>
+                            <div class="ui-g ui-fluid" id="buttons">
+                                <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                        <p:commandButton value="Save" styleClass="btn-primary fa fa-save" />
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                        <p:commandButton value="Reset"  styleClass="btn-info fa fa-undo" />
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>  
+                    </p:dialog>
+                </div>
+            </div>
+        </div>
+        <p:confirmDialog style="position: fixed " global="true" showEffect="fade" hideEffect="fade" styleClass="box-danger">
+            <p:commandButton value="Yes" type="button" styleClass="btn-primary ui-confirmdialog-yes"
+                             icon="fa fa-check"/>
+            <p:commandButton value="No" type="button" styleClass="btn-danger ui-confirmdialog-no"
+                             icon="fa fa-close"/>
+        </p:confirmDialog>
+    </ui:define>
+</ui:composition>

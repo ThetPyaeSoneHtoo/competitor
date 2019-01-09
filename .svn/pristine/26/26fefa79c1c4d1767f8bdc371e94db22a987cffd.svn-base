@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="head-end">
+        <h:outputStylesheet library="css" name="style_1.css"/>
+        <ui:param name="renderBreadCrumb" value="false"/>
+        <h:outputStylesheet library="css" name="competitor_datatable_style.css"/> 
+        <style type="text/css">
+
+            .ui-datatable-header{
+                margin-bottom: -7px!important;
+            }
+            .jqplot-table-legend{
+                display: none !important;
+            }
+             .pagination {
+                display: inline-block;
+            }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .pagination a:hover:not(.active) {background-color: #ddd;}
+            .pagination {
+                display: inline-block;
+            }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .pagination a:hover:not(.active) {background-color: #ddd;}
+
+
+            .pagination {
+                display: inline-block;
+            }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .pagination a:hover:not(.active) {background-color: #ddd;}
+        </style>
+    </ui:define>
+    <ui:define name="title">
+    </ui:define>
+    <ui:define name="body">
+        <div class="box box-primary" style="border: white">  
+            <div class="box-header with-border">
+                <h:form id="mapform">
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <p:commandButton value="Back" onclick="window.history.back()" styleClass="btn btn-info fa fa-reply"/>
+                        </div>
+
+
+
+
+                        <div class="ui-g-2 ui-md-4 ui-lg-2 ui-fluid">
+                            <h:outputLabel value="Company"/>
+                            <p:selectCheckboxMenu id="multiple" value="#{reportGraphBean.company}" label="Cities" multiple="true"
+                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+
+                                <f:selectItems value="#{mapMB.companyList}" />
+                            </p:selectCheckboxMenu>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12"/>
+                        <div class="ui-g-2 ui-md-4 ui-lg-2 ui-fluid"><p:outputLabel value="From Period:"/>
+                            <p:selectOneMenu filter="false" label="Please Select Module:"> 
+                                <f:selectItem  itemLabel="Select Period"  noSelectionOption="true"/> 
+                                <f:selectItem   itemLabel="Jan-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Feb-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Mar-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Apr-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="May-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Jun-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Jul-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Aug-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Sep-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Oct-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Nov-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Dec-2018" itemValue="P"/>>
+                            </p:selectOneMenu>
+
+                        </div>
+                        <div class="ui-g-2 ui-md-4 ui-lg-2 ui-fluid"><p:outputLabel value="To Period:"/>
+                            <p:selectOneMenu filter="false" label="Please Select Module:"> 
+                                <f:selectItem  itemLabel="Select Period"  noSelectionOption="true"/> 
+                                <f:selectItem   itemLabel="Jan-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Feb-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Mar-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Apr-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="May-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Jun-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Jul-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Aug-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Sep-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Oct-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Nov-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Dec-2018" itemValue="P"/>>
+                            </p:selectOneMenu>
+
+                        </div>
+                    </div>
+                    <p:spacer width="3"/>
+                    <h:panelGroup id="panuData">
+                        <p:dataTable reflow="true" widgetVar="panuData" value="#{reportGraphBean.reportDatas}" var="map" rendered="#{reportGraphBean.panu_render}">
+                            <p:column headerText="Pan United">
+                                <h:outputLabel value="#{map.title}"/>
+                            </p:column>
+                            <p:column headerText="Jan-2018">
+                                <h:outputLabel value="#{map.jan}"/>
+                            </p:column>
+                            <p:column headerText="Feb-2018">
+                                <h:outputLabel value="#{map.feb}"/>
+                            </p:column>
+                            <p:column headerText="Mar-2018">
+                                <h:outputLabel value="#{map.mar}"/>
+                            </p:column>
+                            <p:column headerText="Apr-2018">
+                                <h:outputLabel value="#{map.apr}"/>
+                            </p:column>
+                            <p:column headerText="May-2018">
+                                <h:outputLabel value="#{map.may}"/>
+                            </p:column>
+                            <p:column headerText="Jun-2018">
+                                <h:outputLabel value="#{map.jun}"/>
+                            </p:column>
+                            <p:column headerText="Jul-2018">
+                                <h:outputLabel value="#{map.jul}"/>
+                            </p:column>
+                            <p:column headerText="Aug-2018">
+                                <h:outputLabel value="#{map.aug}"/>
+                            </p:column>
+                            <p:column headerText="Sept-2018">
+                                <h:outputLabel value="#{map.sept}"/>
+                            </p:column>
+                            <p:column headerText="Oct-2018">
+                                <h:outputLabel value="#{map.oct}"/>
+                            </p:column>
+                            <p:column headerText="Nov-2018">
+                                <h:outputLabel value="#{map.nov}"/>
+                            </p:column>
+                            <p:column headerText="Dec-2018">
+                                <h:outputLabel value="#{map.dec}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                    <p:spacer width="3"/>
+                    <h:panelGroup id="islandData">
+                        <p:dataTable reflow="true" widgetVar="islandData" value="#{reportGraphBean.reportDatas}" var="map" rendered="#{reportGraphBean.island_render}">
+                            <p:column headerText="Island">
+                                <h:outputLabel value="#{map.title}"/>
+                            </p:column>
+                            <p:column headerText="Jan-2018">
+                                <h:outputLabel value="#{map.jan}"/>
+                            </p:column>
+                            <p:column headerText="Feb-2018">
+                                <h:outputLabel value="#{map.feb}"/>
+                            </p:column>
+                            <p:column headerText="Mar-2018">
+                                <h:outputLabel value="#{map.mar}"/>
+                            </p:column>
+                            <p:column headerText="Apr-2018">
+                                <h:outputLabel value="#{map.apr}"/>
+                            </p:column>
+                            <p:column headerText="May-2018">
+                                <h:outputLabel value="#{map.may}"/>
+                            </p:column>
+                            <p:column headerText="Jun-2018">
+                                <h:outputLabel value="#{map.jun}"/>
+                            </p:column>
+                            <p:column headerText="Jul-2018">
+                                <h:outputLabel value="#{map.jul}"/>
+                            </p:column>
+                            <p:column headerText="Aug-2018">
+                                <h:outputLabel value="#{map.aug}"/>
+                            </p:column>
+                            <p:column headerText="Sept-2018">
+                                <h:outputLabel value="#{map.sept}"/>
+                            </p:column>
+                            <p:column headerText="Oct-2018">
+                                <h:outputLabel value="#{map.oct}"/>
+                            </p:column>
+                            <p:column headerText="Nov-2018">
+                                <h:outputLabel value="#{map.nov}"/>
+                            </p:column>
+                            <p:column headerText="Dec-2018">
+                                <h:outputLabel value="#{map.dec}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                    <p:spacer width="3"/>
+                    <h:panelGroup id="allianceData">
+                        <p:dataTable reflow="true" widgetVar="allianceData" value="#{reportGraphBean.reportDatas}" var="map" rendered="#{reportGraphBean.alliance_render}">
+                            <p:column headerText="Alliance">
+                                <h:outputLabel value="#{map.title}"/>
+                            </p:column>
+                            <p:column headerText="Jan-2018">
+                                <h:outputLabel value="#{map.jan}"/>
+                            </p:column>
+                            <p:column headerText="Feb-2018">
+                                <h:outputLabel value="#{map.feb}"/>
+                            </p:column>
+                            <p:column headerText="Mar-2018">
+                                <h:outputLabel value="#{map.mar}"/>
+                            </p:column>
+                            <p:column headerText="Apr-2018">
+                                <h:outputLabel value="#{map.apr}"/>
+                            </p:column>
+                            <p:column headerText="May-2018">
+                                <h:outputLabel value="#{map.may}"/>
+                            </p:column>
+                            <p:column headerText="Jun-2018">
+                                <h:outputLabel value="#{map.jun}"/>
+                            </p:column>
+                            <p:column headerText="Jul-2018">
+                                <h:outputLabel value="#{map.jul}"/>
+                            </p:column>
+                            <p:column headerText="Aug-2018">
+                                <h:outputLabel value="#{map.aug}"/>
+                            </p:column>
+                            <p:column headerText="Sept-2018">
+                                <h:outputLabel value="#{map.sept}"/>
+                            </p:column>
+                            <p:column headerText="Oct-2018">
+                                <h:outputLabel value="#{map.oct}"/>
+                            </p:column>
+                            <p:column headerText="Nov-2018">
+                                <h:outputLabel value="#{map.nov}"/>
+                            </p:column>
+                            <p:column headerText="Dec-2018">
+                                <h:outputLabel value="#{map.dec}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+
+                    <p:spacer width="3"/>
+
+                    <h:panelGroup id="ytlData">
+                        <p:dataTable reflow="true" widgetVar="allianceData" value="#{reportGraphBean.reportDatas}" var="map" rendered="#{reportGraphBean.ytl_render}">
+                            <p:column headerText="YTL">
+                                <h:outputLabel value="#{map.title}"/>
+                            </p:column>
+                            <p:column headerText="Jan-2018">
+                                <h:outputLabel value="#{map.jan}"/>
+                            </p:column>
+                            <p:column headerText="Feb-2018">
+                                <h:outputLabel value="#{map.feb}"/>
+                            </p:column>
+                            <p:column headerText="Mar-2018">
+                                <h:outputLabel value="#{map.mar}"/>
+                            </p:column>
+                            <p:column headerText="Apr-2018">
+                                <h:outputLabel value="#{map.apr}"/>
+                            </p:column>
+                            <p:column headerText="May-2018">
+                                <h:outputLabel value="#{map.may}"/>
+                            </p:column>
+                            <p:column headerText="Jun-2018">
+                                <h:outputLabel value="#{map.jun}"/>
+                            </p:column>
+                            <p:column headerText="Jul-2018">
+                                <h:outputLabel value="#{map.jul}"/>
+                            </p:column>
+                            <p:column headerText="Aug-2018">
+                                <h:outputLabel value="#{map.aug}"/>
+                            </p:column>
+                            <p:column headerText="Sept-2018">
+                                <h:outputLabel value="#{map.sept}"/>
+                            </p:column>
+                            <p:column headerText="Oct-2018">
+                                <h:outputLabel value="#{map.oct}"/>
+                            </p:column>
+                            <p:column headerText="Nov-2018">
+                                <h:outputLabel value="#{map.nov}"/>
+                            </p:column>
+                            <p:column headerText="Dec-2018">
+                                <h:outputLabel value="#{map.dec}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                    <p:spacer width="3"/>
+                    <h:panelGroup id="samwohData">
+                        <p:dataTable reflow="true" widgetVar="allianceData" value="#{reportGraphBean.reportDatas}" var="map" rendered="#{reportGraphBean.samwoh_render}">
+                            <p:column headerText="Samwoh">
+                                <h:outputLabel value="#{map.title}"/>
+                            </p:column>
+                            <p:column headerText="Jan-2018">
+                                <h:outputLabel value="#{map.jan}"/>
+                            </p:column>
+                            <p:column headerText="Feb-2018">
+                                <h:outputLabel value="#{map.feb}"/>
+                            </p:column>
+                            <p:column headerText="Mar-2018">
+                                <h:outputLabel value="#{map.mar}"/>
+                            </p:column>
+                            <p:column headerText="Apr-2018">
+                                <h:outputLabel value="#{map.apr}"/>
+                            </p:column>
+                            <p:column headerText="May-2018">
+                                <h:outputLabel value="#{map.may}"/>
+                            </p:column>
+                            <p:column headerText="Jun-2018">
+                                <h:outputLabel value="#{map.jun}"/>
+                            </p:column>
+                            <p:column headerText="Jul-2018">
+                                <h:outputLabel value="#{map.jul}"/>
+                            </p:column>
+                            <p:column headerText="Aug-2018">
+                                <h:outputLabel value="#{map.aug}"/>
+                            </p:column>
+                            <p:column headerText="Sept-2018">
+                                <h:outputLabel value="#{map.sept}"/>
+                            </p:column>
+                            <p:column headerText="Oct-2018">
+                                <h:outputLabel value="#{map.oct}"/>
+                            </p:column>
+                            <p:column headerText="Nov-2018">
+                                <h:outputLabel value="#{map.nov}"/>
+                            </p:column>
+                            <p:column headerText="Dec-2018">
+                                <h:outputLabel value="#{map.dec}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                    <p:spacer width="3"/>
+                    <h:panelGroup id="simixData">
+                        <p:dataTable reflow="true" widgetVar="allianceData" value="#{reportGraphBean.reportDatas}" var="map" rendered="#{reportGraphBean.simix_render}">
+                            <p:column headerText="Simix">
+                                <h:outputLabel value="#{map.title}"/>
+                            </p:column>
+                            <p:column headerText="Jan-2018">
+                                <h:outputLabel value="#{map.jan}"/>
+                            </p:column>
+                            <p:column headerText="Feb-2018">
+                                <h:outputLabel value="#{map.feb}"/>
+                            </p:column>
+                            <p:column headerText="Mar-2018">
+                                <h:outputLabel value="#{map.mar}"/>
+                            </p:column>
+                            <p:column headerText="Apr-2018">
+                                <h:outputLabel value="#{map.apr}"/>
+                            </p:column>
+                            <p:column headerText="May-2018">
+                                <h:outputLabel value="#{map.may}"/>
+                            </p:column>
+                            <p:column headerText="Jun-2018">
+                                <h:outputLabel value="#{map.jun}"/>
+                            </p:column>
+                            <p:column headerText="Jul-2018">
+                                <h:outputLabel value="#{map.jul}"/>
+                            </p:column>
+                            <p:column headerText="Aug-2018">
+                                <h:outputLabel value="#{map.aug}"/>
+                            </p:column>
+                            <p:column headerText="Sept-2018">
+                                <h:outputLabel value="#{map.sept}"/>
+                            </p:column>
+                            <p:column headerText="Oct-2018">
+                                <h:outputLabel value="#{map.oct}"/>
+                            </p:column>
+                            <p:column headerText="Nov-2018">
+                                <h:outputLabel value="#{map.nov}"/>
+                            </p:column>
+                            <p:column headerText="Dec-2018">
+                                <h:outputLabel value="#{map.dec}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                    <h:panelGroup id="footer">
+
+                        <div class="ui-g-12 ui-md-12 ui-lg-12" >
+                            <p:outputLabel value="Batching Capacity - base on 1,200 m³/h/plant" rendered="#{reportGraphBean.footer_render}"/> 
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <p:outputLabel value="Truck Capacity (mᶟ) - base on 9m³/each truck" rendered="#{reportGraphBean.footer_render}"/> 
+                        </div>
+
+                    </h:panelGroup>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <p:chart type="line" model="#{lineAndBarBBean.lineModel2}" responsive="true"/>
+                        </div> 
+                        <div class="ui-g-1"/>
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <p:chart type="line" model="#{lineAndBarBBean.lineModel}" responsive="true"/>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <p:chart type="bar" model="#{lineAndBarBBean.barModel}" responsive="true"/>
+                        </div> 
+                        <div class="ui-g-1"/>
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <p:chart type="bar" model="#{lineAndBarBBean.barModel1}" responsive="true"/>
+                        </div> 
+                    </div>
+                    <div class="ui-g-12 pagination">
+                        <p:commandLink>	&lt;&lt;</p:commandLink>
+
+                        <h:commandLink id="version1" action="/view/reports/report_w_graph.xhtml?faces-redirect=true" style="color: #3399ff;">PAN UNITED</h:commandLink>
+                        <h:commandLink id="version2" action="/view/reports/report_graph.xhtml?faces-redirect=true" style="background-color: #A6A7AC;color: #3399ff;" >ISLAND</h:commandLink>
+                        <p:commandLink>	&gt;&gt;</p:commandLink>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

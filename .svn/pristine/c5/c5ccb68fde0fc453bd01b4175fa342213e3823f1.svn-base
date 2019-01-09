@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <style type="text/css">
+        #layout-menu_menu {
+            z-index: 9997!important;
+        }
+        #layout-menu_menu span.ui-menuitem-text {
+            margin-left: 2px;
+        }
+        @media ( max-width: 1024px) {
+            #logout.ui-button-text.ui-c{
+                display: none!important;
+            }
+        }
+    </style>
+    <ul class="nav navbar-nav">
+
+
+        <li class="dropdown user user-menu">
+            <p:commandButton id="logout" style="color: white;margin-top: 8px;background-color: #3c8dbc;border-color: #3c8dbc;font-weight: bold" styleClass="mybutton fa fa-sign-out fa-2x" action="#{logoutMB.doLogout}" value="Log Out">
+
+            </p:commandButton>
+
+
+        </li>
+
+
+    </ul>
+
+</ui:composition>

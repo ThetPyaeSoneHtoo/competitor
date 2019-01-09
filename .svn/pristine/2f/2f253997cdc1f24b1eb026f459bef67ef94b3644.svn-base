@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <f:metadata>
+
+    </f:metadata>
+    <ui:define name="head-end">
+        <h:outputStylesheet library="css" name="competitor_datatable_style.css"/>
+        <style type="text/css">
+            .ui-selectcheckboxmenu-multiple{
+                background-color: white;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+        Search
+    </ui:define>
+
+    <ui:define name="description">
+        Search
+    </ui:define>
+    <ui:define name="body">
+        <adm:breadcrumb title="Search" link="/view/search/searchpage.xhtml"/>
+        <div class="box box-primary" >
+            <div class="box-header with-border">
+                <h:form enctype="multipart/form-data">
+                    <p:panel style="-moz-border-radius: 25px!important; -webkit-border-radius: 25px!important;">
+                        <div align="right" class="ui-g">
+                            <p:spacer width="1"/>
+                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                        <p:outputLabel value="Company:"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6 ui-fluid">
+                                        <p:selectOneMenu  label="Please Select Module:"> 
+                                            <f:selectItem   itemLabel="Pan United" itemValue=""/> 
+                                            <f:selectItem  itemLabel="Island" itemValue=""/>
+                                            <f:selectItem  itemLabel="Alliance" itemValue=""/>
+                                            <f:selectItem  itemLabel="YTL" itemValue=""/> 
+                                            <f:selectItem  itemLabel="Samwoh" itemValue=""/>
+                                            <f:selectItem  itemLabel="Sinmix" itemValue=""/> 
+                                            <f:selectItem  itemLabel="Select Company" itemValue=""/> 
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-4"><p:outputLabel value="Batching Plant Location:"/></div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6 ui-fluid">
+                                        <p:selectOneMenu label="Please Select Module:"> 
+                                            <f:selectItem   itemLabel="Sungei Kadut" itemValue=""/> 
+                                            <f:selectItem  itemLabel="East Coast" itemValue=""/>
+                                            <f:selectItem  itemLabel="Marina East" itemValue=""/>
+                                            <f:selectItem  itemLabel="Pandan Road" itemValue=""/> 
+                                            <f:selectItem  itemLabel="Tuas" itemValue=""/>
+                                            <f:selectItem  itemLabel="Punggol" itemValue=""/> 
+                                            <f:selectItem  itemLabel="Select Location" itemValue=""/> 
+                                        </p:selectOneMenu> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                        <p:outputLabel value="Zone:"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6 ui-fluid">
+                                        <p:selectOneMenu  label="Please Select Module:"> 
+                                            <f:selectItem   itemLabel="North" itemValue=""/> 
+                                            <f:selectItem  itemLabel="West" itemValue=""/>
+                                            <f:selectItem  itemLabel="South" itemValue=""/>
+                                            <f:selectItem  itemLabel="East" itemValue=""/> 
+                                            <f:selectItem  itemLabel="Select Zone" itemValue=""/> 
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-4"><p:outputLabel value="No. of Truck :"/></div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6 ui-fluid">
+                                        <p:inputText placeholder="No. of Truck"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                        <p:outputLabel value="HDB Approved:"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6 ui-fluid">
+                                        <p:selectOneMenu  label="Please Select Module:"> 
+                                            <f:selectItem   itemLabel="Not Approved" itemValue=""/> 
+                                            <f:selectItem  itemLabel="Approved" itemValue=""/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-4"><p:outputLabel value="Capabilities:"/></div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6 ui-fluid">
+                                        <p:selectCheckboxMenu id="multiple" label="Cities" multiple="true"
+                                                              filter="false" filterMatchMode="startsWith" panelStyle="width:250px">
+                                            <p:ajax event="change" listener="#{mapMB.companySelect}" />
+                                            <f:selectItems value="#{mapMB.companyList}" />
+                                        </p:selectCheckboxMenu>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p:separator style="display:none"/>
+                        <div class="ui-g ui-fluid" id="buttons">
+                            <div class="ui-g-12 ui-md-8 ui-lg-5"></div>
+                            <div class="ui-g-12 ui-md-4 ui-lg-3">
+                                <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                    <p:commandButton value="Search" styleClass="btn-primary fa fa-search" />
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                    <p:commandButton value="Reset"  styleClass="btn-info fa fa-undo" />
+                                </div>
+                            </div>
+                        </div>
+                    </p:panel>
+                    <p:separator />
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <p:commandButton value="Export" ajax="false" styleClass="btn-primary fa fa-arrow-circle-o-down">
+                                <p:dataExporter type="xls" target="detailTab" fileName="report" pageOnly="true"/>
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    <p:dataTable value="#{searchBBean.searchData}"  rows="7" rendered="true" paginatorPosition="bottom" reflow="true"  editable="true" widgetVar="detailTab" id="detailTab" var="pan"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
+                                 currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]" 
+                                 paginator="true">
+
+                        <p:column headerText="Company" >
+                            <h:outputText value="#{pan.companyString}" />
+                        </p:column>
+
+                        <p:column headerText="Batching Plant Location" >
+                            <h:outputText value="#{pan.batchingPlantLocation}" />
+                        </p:column>
+
+                        <p:column headerText="No.of Batching Plants" >
+                            <h:outputText value="#{pan.noOfBatchingPlants}" />
+                        </p:column>
+
+                        <p:column headerText="Zone" >
+                            <h:outputText value="#{pan.zone}" />
+                        </p:column>
+
+                        <p:column headerText="No.of Trucks" >
+                            <h:outputText value="#{pan.noOfTrucks}" />
+                        </p:column>
+
+                        <p:column headerText="Batching Capacity(m/n)" >
+                            <h:outputText value="#{pan.batchingCapacity}" />
+                        </p:column>
+
+                        <p:column headerText="Volume m'per Month" >
+                            <h:outputText value="#{pan.volumePerMonth}" />
+                        </p:column>
+
+                        <p:column headerText="HDB Approved" >
+                            <h:outputText value="#{pan.hdbApproved}" />
+                        </p:column>
+
+                        <p:column headerText="TOL Details" >
+                            <h:outputText value="#{pan.tolDetail}" />
+                        </p:column>
+                        <p:column headerText="Supported By" >
+                            <h:outputText value="#{pan.supportedBy}" />
+                        </p:column>
+                        <p:column headerText="Capabilites" >
+                            <h:outputText value="#{pan.capability}" />
+                        </p:column>
+
+                        <p:column headerText="Map Location" >
+                            <h:outputText value="#{pan.mapLocation}" />
+                        </p:column>
+                        <p:column headerText="Picture" >
+                            <h:outputText value="#{pan.picture}" />
+                        </p:column>
+                        <p:column headerText="Legal Issues" >
+                            <h:outputText value="#{pan.legalIssues}" />
+                        </p:column>
+                    </p:dataTable>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:commandButton rendered="#{dtSubTableView.flag}" value="Export"  styleClass="btn-primary" />
+                        </div>
+
+                    </div>
+                </h:form>
+                <p:dialog id="CapabilityDialog" widgetVar="CapabilityDialog"  
+                          header="Select Capabilities" modal="true"  
+                          hideEffect="explode" appendTo="@(body)"  
+                          resizable="false" draggable="false" positionType="absolute"
+                          closeOnEscape="true" responsive="true" fitViewport="true"> 
+                    <h:form>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <p:selectManyCheckbox>
+                                <f:selectItem itemLabel="LSS" itemValue="LSS" />
+                                <f:selectItem itemLabel="RCA" itemValue="RCA" />
+                            </p:selectManyCheckbox>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12"/>
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                            <p:commandButton value="Select" styleClass="btn-success" onclick="PF('CapabilityDialog').hide()"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                            <p:commandButton value="Close" styleClass="btn-danger" onclick="PF('CapabilityDialog').hide()"/>
+                        </div>
+                    </h:form>
+                </p:dialog>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

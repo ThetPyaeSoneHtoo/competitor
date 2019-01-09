@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <f:metadata>
+        <f:viewAction action="#{chartBBean.init}"></f:viewAction>
+    </f:metadata>
+    <ui:define name="head-end">
+        <h:outputStylesheet library="css" name="competitor_datatable_style.css"/>
+        <style>
+            .small-chart .highcharts-title {
+                display: none;
+            }
+            @media (max-width: 991px){
+                .breadcrumb{
+                    background:  #ecf0f5 !important;
+                }
+            }
+            .sidebar-form{
+                display: none !important;
+            }
+            body{ background-color: ivory; }
+            #canvas{border:1px solid red;}
+            .mycolumn span.ui-column-title{
+                display: none!important;
+            }
+            #gnome span{
+                overflow:visible!important;
+            }
+            .ui-panel.ui-widget{
+                background-color: #ecf0f5!important;
+            }
+            th{
+                background-color: #a6a8a9!important;
+                color: #444!important;
+                font-size: 14px!important;
+            }
+            .ui-selectcheckboxmenu.ui-widget{
+                background-color: #a6a8a9!important;
+                color: #444!important;
+                font-size: 14px!important;
+            }
+
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+
+    </ui:define>
+    <ui:define name="body">
+
+        <script src="../../resources/js/Chart.min.js" />
+        <script src="../../resources/js/Chart.PieceLabel.js" />
+        <script src="../../resources/js/highchart.js" />
+        <script src="../../resources/js/exporting.js" />
+        <script src="../../resources/js/export-data.js" />
+        <div class="box box-primary" style="border:white">
+            <div class="box-header with-border">
+
+                <h:form id="charthaha" >
+
+                    <div class="ui-g" style="background-color: #f4f4f4;border-radius: 25px;">
+                        <div class="ui-g-12 ui-md-12 ui-lg-12"></div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12"></div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-#{chartBBean.valuediv}">
+
+                            <div id="gnome" style="max-width: 660px;
+                                 margin: auto;
+                                 height: 500px;
+                                 margin: 0 auto;"></div>
+                            <h:inputHidden id="hiddenname" value="#{chartBBean.hiddenName}"/>
+                            <p:commandButton style="display: none" update="charthaha,charthaha:ppanle,charthaha:tpanle,charthaha:cpanle" id="btnshow" actionListener="#{chartBBean.showTable()}"></p:commandButton>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-#{chartBBean.valuediv}">
+                            <div >
+                                <h:panelGroup id="ppanle" rendered="#{chartBBean.chart1}"> 
+                                    <div class="ui-g">
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <p:commandButton value="Generate PDF" styleClass="btn-primary fa fa-arrow-circle-o-down" onclick="document.location = 'pdf.xhtml'">
+                                            </p:commandButton>
+                                        </div></div>
+                                    <p:dataTable id="chart1" var="chart" sortBy="#{chart[0]}" paginator="false" rows="2" value="#{chartBBean.list1}" widgetVar="chart1"
+                                                 editable="true" style="text-align: center"
+                                                 tableStyle="table-layout:auto">
+                                        <p:column headerText="North">   
+                                            <h:outputText value="#{chart[0]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="South">
+                                            <h:outputText value="#{chart[1]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="East">
+                                            <h:outputText value="#{chart[2]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="West">
+                                            <h:outputText value="#{chart[3]}" style="center"/>
+                                        </p:column>
+                                        <p:summaryRow >
+                                            <p:column colspan="3" style="text-align:right">
+                                                <h:outputText value="Total no. of Plants: (Batching Capacity): " />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="12 (1,200 m³/h) ">
+                                                </h:outputText>
+                                            </p:column>
+                                        </p:summaryRow>
+                                    </p:dataTable>
+                                    <p:spacer height="5"/>
+
+                                    <p:dataTable id="chart2" var="chart" paginator="true" rows="4" paginatorPosition="bottom" value="#{chartBBean.list2}" widgetVar="zoneChart"
+                                                 editable="true" style="text-align: center"
+                                                 rendered="#{chartBBean.chart1}" reflow="true">
+                                        <p:column headerText="Location">
+                                            <h:outputText value="#{chart[0]}" style="center"/>
+                                        </p:column>
+
+                                        <p:column filterBy="#{chart[1]}" headerText="Zone" styleClass="mycolumn">
+                                            <f:facet name="filter">
+                                                <p:selectCheckboxMenu label="Zone" onchange="PF('zoneChart').filter()" scrollHeight="150" style="background-color: #5FA2C9;color: white" styleClass="custom-filter">
+
+                                                    <f:selectItems value="#{chartBBean.zoneList}" />
+                                                </p:selectCheckboxMenu>
+                                            </f:facet>
+                                            <h:outputText value="#{chart[1]}" />
+                                        </p:column>
+
+                                        <p:column headerText="No. of Plants">
+                                            <h:outputText value="#{chart[2]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="HDB Approved?">
+
+                                            <h:outputText styleClass="fa fa-check" style="text-align: center" rendered="#{chartBBean.mark(chart[3])}"/>
+
+                                        </p:column>
+                                        <p:column headerText="Batching Capabilities">
+                                            <h:outputText value="#{chart[4]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="Map">
+                                            <p:commandButton icon="fa fa-map-marker" styleClass="btn-success datatablebutton"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGroup>
+                                <h:panelGroup id="tpanle" rendered="#{chartBBean.chart2}"> 
+                                    <div class="ui-g">
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <p:commandButton value="Generate PDF" styleClass="btn-primary fa fa-arrow-circle-o-down" onclick="document.location = 'truck.xhtml'">
+                                            </p:commandButton>
+                                        </div></div>
+                                    <p:dataTable  var="chart" sortBy="#{chart[0]}" paginator="false" rows="7" value="#{chartBBean.list1}" widgetVar="chart1"
+                                                  editable="true" style="text-align: center"
+                                                  tableStyle="table-layout:auto">
+                                        <p:column headerText="North">   
+                                            <h:outputText value="#{chart[0]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="South">
+                                            <h:outputText value="#{chart[1]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="East">
+                                            <h:outputText value="#{chart[2]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="West">
+                                            <h:outputText value="#{chart[3]}" style="center"/>
+                                        </p:column>
+                                        <p:summaryRow >
+                                            <p:column colspan="3" style="text-align:right">
+                                                <h:outputText value="Total no. of Trucks: " />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="210">
+                                                </h:outputText>
+                                            </p:column>
+                                        </p:summaryRow>
+                                    </p:dataTable>
+                                    <p:spacer height="5"/>
+                                    <p:dataTable  var="chart" paginator="true" rows="4" paginatorPosition="bottom" value="#{chartBBean.list2}" widgetVar="chart2"
+                                                  editable="true" style="text-align: center"
+                                                  rendered="#{chartBBean.chart2}" reflow="true" tableStyle="table-layout:auto">
+                                        <p:column headerText="Location">
+                                            <h:outputText value="#{chart[0]}" style="center"/>
+                                        </p:column>
+                                        <p:column filterBy="#{chart[1]}" headerText="Zone" styleClass="mycolumn">
+                                            <f:facet name="filter">
+                                                <p:selectCheckboxMenu label="Zone" onchange="PF('zoneChart').filter()" scrollHeight="150" style="background-color: #5FA2C9;color: white" styleClass="custom-filter">
+
+                                                    <f:selectItems value="#{chartBBean.zoneList}" />
+                                                </p:selectCheckboxMenu>
+                                            </f:facet>
+                                            <h:outputText value="#{chart[1]}" />
+                                        </p:column>
+                                        <p:column headerText="No. of Plants">
+                                            <h:outputText value="#{chart[2]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="Trucking Capacity">
+                                            <h:outputText value="#{chart[3]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="Map">
+                                            <p:commandButton icon="fa fa-map-marker" styleClass="btn-success datatablebutton"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGroup>
+                                <h:panelGroup id="cpanle" rendered="#{chartBBean.chart3}"> 
+                                    <div class="ui-g">
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <p:commandButton value="Generate PDF" styleClass="btn-primary fa fa-arrow-circle-o-down" onclick="document.location = 'capabi.xhtml'">
+                                            </p:commandButton>
+                                        </div></div>
+                                    <p:dataTable  var="chart"  paginator="false" rows="7" value="" widgetVar="chart1"
+                                                  editable="true"
+                                                  tableStyle="table-layout:auto">
+                                        <p:column headerText="Capabilities">   
+                                            <h:outputText value="LSS" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="">
+                                            <h:outputText value="Grade 200" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="">
+                                            <h:outputText value="RCA" style="center"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:spacer height="5"/>
+                                    <p:dataTable  var="chart" paginator="false" rows="7"  widgetVar="chart2"
+                                                  editable="true" value=""
+                                                  rendered="#{chartBBean.chart3}" reflow="true" tableStyle="table-layout:auto">
+                                        <f:facet name="header">
+                                            <h:outputLabel value="Legal Issues:" style="font-size: small;font-weight: bold;margin-left: -7px;"/>
+                                        </f:facet>
+                                        <p:column headerText="Company:">
+                                            <h:outputText value="xxx" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="Year of Lodge:">
+                                            <h:outputText value="xxxxx" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="Supreme Court/ Subordinate Court:">
+                                            <h:outputText value="" style="center"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGroup>
+                                <h:panelGroup id="tolpanle" rendered="#{chartBBean.chart4}"> 
+                                    <div class="ui-g">
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <p:commandButton value="Generate PDF" styleClass="btn-primary fa fa-arrow-circle-o-down" onclick="document.location = 'truck.xhtml'">
+                                            </p:commandButton>
+                                        </div></div>
+                                    <p:dataTable  var="chart" sortBy="#{chart[0]}" paginator="false" rows="7" value="#{chartBBean.list1}" widgetVar="chart1"
+                                                  editable="true" style="text-align: center"
+                                                  tableStyle="table-layout:auto">
+                                        <p:column headerText="North">   
+                                            <h:outputText value="#{chart[0]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="South">
+                                            <h:outputText value="#{chart[1]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="East">
+                                            <h:outputText value="#{chart[2]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="West">
+                                            <h:outputText value="#{chart[3]}" style="center"/>
+                                        </p:column>
+                                        <p:summaryRow >
+                                            <p:column colspan="3" style="text-align:right">
+                                                <h:outputText value="Total no. of Plants: " />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="210">
+                                                </h:outputText>
+                                            </p:column>
+                                        </p:summaryRow>
+                                    </p:dataTable>
+                                    <p:spacer height="5"/>
+                                    <p:dataTable  var="chart" paginator="true" rows="4" paginatorPosition="bottom" value="#{chartBBean.list2}" widgetVar="chart2"
+                                                  editable="true" style="text-align: center"
+                                                  rendered="#{chartBBean.chart4}" reflow="true" tableStyle="table-layout:auto">
+                                        <p:column headerText="Location">
+                                            <h:outputText value="#{chart[0]}" style="center"/>
+                                        </p:column>
+                                        <p:column filterBy="#{chart[1]}" headerText="Zone" styleClass="mycolumn">
+                                            <f:facet name="filter">
+                                                <p:selectCheckboxMenu label="Zone" onchange="PF('zoneChart').filter()" scrollHeight="150" style="background-color: #5FA2C9;color: white" styleClass="custom-filter">
+
+                                                    <f:selectItems value="#{chartBBean.zoneList}" />
+                                                </p:selectCheckboxMenu>
+                                            </f:facet>
+                                            <h:outputText value="#{chart[1]}" />
+                                        </p:column>
+                                        <p:column headerText="No. of Plants">
+                                            <h:outputText value="#{chart[2]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="HDB Approved?">
+                                            <h:outputText styleClass="fa fa-check" style="text-align: center" rendered="#{chartBBean.mark(chart[3])}"/>
+                                        </p:column>
+                                        <p:column headerText="Lease Period">
+                                            <h:outputText value="#{chart[5]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="Supported by">
+                                            <h:outputText value="#{chart[4]}" style="center"/>
+                                        </p:column>
+                                        <p:column headerText="Map">
+                                            <p:commandButton icon="fa fa-map-marker" styleClass="btn-success datatablebutton"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGroup>
+                            </div> 
+
+                        </div>
+                        <p:spacer width="5"/>
+                        <!--                <div class="ui-g-1"/>-->
+                    </div>
+
+                    <p:dialog id="chartDialog" widgetVar="chartDialog" closeOnEscape="true" resizable="false" modal="true">
+                        <p:dataTable id="chart_datatable1" var="chart" paginator="true" rows="7" value="#{chartBBean.list1}" widgetVar="chart_datatable1"
+                                     editable="true" rowKey="" filteredValue=""
+                                     paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
+                                     currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
+                                     rendered="#{chartBBean.chart1}" reflow="true" tableStyle="table-layout:auto">
+                            <p:column headerText="North">
+                                <h:outputText value="#{chart}" style="center"/>
+                            </p:column>
+                            <p:column headerText="South">
+                                <h:outputText value="#{chart}" style="center"/>
+                            </p:column>
+                            <p:column headerText="East">
+                                <h:outputText value="#{chart}" style="center"/>
+                            </p:column>
+                            <p:column headerText="West">
+                                <h:outputText value="#{chart}" style="center"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:spacer height="2"/>
+                        <p:dataTable id="chart_datatable2" var="chart" paginator="true" rows="7" value="#{chartBBean.list2}" widgetVar="chart_datatable2"
+                                     editable="true" rowKey="" filteredValue=""
+                                     paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
+                                     currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
+                                     rendered="#{chartBBean.chart2}" reflow="true" tableStyle="table-layout:auto">
+                            <p:column headerText="Location">
+                                <h:outputText value="#{chart[0]}" style="center"/>
+                            </p:column>
+                            <p:column filterBy="#{chart[1]}" headerText="Zone" styleClass="mycolumn">
+                                <f:facet name="filter">
+                                    <p:selectCheckboxMenu label="Zone" multiple="true" onchange="PF('zoneChart').filter()" scrollHeight="150" style="background-color: #5FA2C9;color: white" styleClass="custom-filter">
+
+                                        <f:selectItems value="#{chartBBean.zoneList}" />
+                                    </p:selectCheckboxMenu>
+                                </f:facet>
+                                <h:outputText value="#{chart[1]}" />
+                            </p:column>
+                            <p:column headerText="No. of Plants">
+                                <h:outputText value="#{chart[2]}" style="center"/>
+                            </p:column>
+                            <p:column headerText="HDB Approved?">
+                                <div align="center">
+                                    <p:outputLabel styleClass="fa fa-check" rendered="#{chartBBean.mark(chart[3])}"/>
+                                </div>
+                            </p:column>
+                            <p:column headerText="Batching Capabilities">
+                                <h:outputText value="#{chart[4]}" style="center"/>
+                            </p:column>
+                            <p:column headerText="Map">
+                                <p:commandButton value="" icon="fa fa-map-marker" styleClass="btn-success datatablebutton"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:spacer width="5"/>
+                    <script src="../../resources/js/samwohchart.js" />
+                    
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

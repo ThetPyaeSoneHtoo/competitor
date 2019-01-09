@@ -1,0 +1,6 @@
+admin.renderControlSidebar=true
+admin.controlSidebar.showOnMobile=true
+admin.renderAjaxStatus=false
+admin.renderMenuSearch=false
+admin.controlSidebar.leftMenuTemplate=false
+admin.indexPage=/view/map/Gmap.xhtml

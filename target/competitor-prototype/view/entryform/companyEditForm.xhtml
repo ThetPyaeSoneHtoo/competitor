@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <f:metadata>
+       
+    </f:metadata>
+    <ui:define name="head-end">
+        <h:outputStylesheet library="css" name="competitor_datatable_style.css"/> 
+        <style type="text/css">
+             
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+            div.ui-dialog-titlebar.ui-dialog-titlebar.ui-widget-header{
+                background-color:  #ecf0f5!important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+        Company Edit Form
+    </ui:define>
+
+    <ui:define name="description">
+
+    </ui:define>
+    <ui:define name="body">
+
+        <div class="box box-primary" >
+            <div class="box-header with-border">
+                <div style="border:1px solid #CCC;">
+                    <h:form enctype="multipart/form-data">
+
+                        <p:spacer width="1"/>
+                        <div class="ui-g ">
+                            <div class="ui-g-12 ui-md-6 ui-lg-4" align="right"><p:outputLabel value="Company Name:"/></div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-4 ui-fluid"><p:inputText value="Pan United"/></div>
+                        </div>
+                        <div class="ui-g ">
+                            <div class="ui-g-12 ui-md-6 ui-lg-4" align="right"><p:outputLabel value="Company Short Name:"/></div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-4 ui-fluid"><p:inputText value="PanU"/></div>
+                        </div>
+                        <div class="ui-g ">
+                            <div class="ui-g-12 ui-md-6 ui-lg-4" align="right"><p:outputLabel value="Color:"/></div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-4"><p:colorPicker  value="#ff0011"/></div>
+                        </div>
+                        <div class="ui-g ">
+                            <div class="ui-g-12 ui-md-6 ui-lg-4" align="right"><p:outputLabel value="Legal Issue Description:"/></div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-4 ui-fluid"><p:inputTextarea value="Some Legal Issue Description"/></div>
+                        </div>
+                        <div class="ui-g ">
+                            <div class="ui-g-12 ui-md-6 ui-lg-4" align="right"><p:outputLabel value="Add Legal Issue:"/></div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-4"><p:commandButton icon="fa fa-edit" id="editDeptBtn" onclick="PF('legal_issue_dialog').show()" 
+                                                                                  ajax="true"  styleClass="btn-success"/></div>
+                        </div>
+                        <p:spacer width="10"/>
+                        <div class="ui-g ui-fluid" id="buttons">
+                            <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                    <p:commandButton value="Update" styleClass="btn-primary fa fa-pencil"  onclick="window.history.back()"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6 ui-fluid">
+                                    <p:commandButton value="Reset"  styleClass="btn-info fa fa-undo" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </h:form>
+                    <p:confirmDialog style="position: fixed " global="true" showEffect="fade" hideEffect="fade" styleClass="box-danger">
+                        <p:commandButton value="Yes" type="button" styleClass="btn-primary ui-confirmdialog-yes"
+                                         icon="fa fa-check"/>
+                        <p:commandButton value="No" type="button" styleClass="btn-danger ui-confirmdialog-no"
+                                         icon="fa fa-close"/>
+                    </p:confirmDialog>
+                    <p:dialog id="legal_issue_dialog" header="Legal Issues" widgetVar="legal_issue_dialog" fitViewport="true" appendTo="@(body)" modal="true" 
+                              resizable="false" draggable="false"  positionType="absolute"
+                              closeOnEscape="true">
+                        <div class="ui-g">
+                            <div class="ui-g-12">
+                                <p:commandButton value="Add new" styleClass="btn btn-primary fa fa-plus" process="@this"
+                                                 oncomplete="PF('legal_issue_table').addRow();"/>
+                            </div>
+                        </div>
+                        <p:dataTable value="#{companyFormMB.legalIssueList}" var="data" paginator="true" paginatorPosition="bottom" reflow="true" tableStyle="table-layout:auto"
+                                     editable="true" editMode="cell" widgetVar="legal_issue_table" id="legal_issue_table"
+                                     >
+
+
+                            <p:column headerText="Company">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{data.companyName}">
+                                        </h:outputText>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{data.companyName}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Year Of Lodge">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{data.yearOfLodge}">
+                                        </h:outputText>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{data.yearOfLodge}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Court Type">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{data.courtType}">
+                                        </h:outputText>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{data.courtType}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Delete">
+                               
+                                    <p:commandButton  icon="fa fa-trash" style=" display: block; margin: 0 auto;" update="legal_issue_table" styleClass="btn-danger"  immediate="true" action="#{companyFormMB.removeLegalIssue(data)}">
+                                        
+                                    </p:commandButton>
+                                
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:spacer height="10"/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

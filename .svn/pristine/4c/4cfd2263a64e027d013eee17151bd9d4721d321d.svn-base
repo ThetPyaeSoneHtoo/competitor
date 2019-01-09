@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <f:metadata>
+    </f:metadata>
+    <ui:define name="head-end">
+        <style>
+
+            @media (max-width: 991px){
+                .breadcrumb{
+                    background:  #ecf0f5 !important;
+                }
+            }
+            .sidebar-form{
+                display: none !important;
+            }
+            body{ background-color: ivory; }
+            #canvas{border:1px solid red;}
+            @media ( max-width: 1024px) {
+                #elf{
+                    margin-top: -1em!important;
+                }
+
+            }
+            @media ( max-width: 740px) {
+                #elf{
+                    max-width: 750px!important;
+                    margin: auto!important;
+                    height: 400px!important;
+                    margin: 0 auto!important;
+                }
+
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+
+    </ui:define>
+    <ui:define name="body">
+        <adm:breadcrumb title="Chart" link="/view/charts/first_chart.xhtml"/>
+        <script src="../../resources/js/highchart.js" />
+        <script src="../../resources/js/exporting.js" />
+        <script src="../../resources/js/export-data.js" />
+        <div class="box box-primary" style="border:white">
+            <div class="box-header with-border">
+                <h:form id="chartform" >
+
+                    <div class="ui-g" style="background-color: #f4f4f4;border-radius: 25px;">
+
+                        <div class="ui-g-12 ui-md-12 ui-lg-12" align="right">
+                            <p:spacer width="5"></p:spacer>
+                            <p:selectOneMenu value="#{chartModal.charttitle}" style="background-color: white;width: 250px"> 
+                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+                                <p:ajax listener="#{chartModal.onfirstchartChange()}"/>
+                                <f:selectItems value="#{chartModal.filterName}" var="filter" itemLabel="#{filter}" itemValue="#{filter}"/> 
+                            </p:selectOneMenu>
+
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12" align="right">
+                            <p:selectOneMenu  filter="false" label="Please Select Module:"  style="background-color: white;width: 200px"> 
+                                <f:selectItem  itemLabel="Select Period"  noSelectionOption="true"/> 
+                                <f:selectItem   itemLabel="Jan-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Feb-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Mar-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Apr-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="May-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Jun-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Jul-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Aug-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Sep-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Oct-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Nov-2018" itemValue="P"/>
+                                <f:selectItem   itemLabel="Dec-2018" itemValue="P"/>>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+
+                            <div id="elf" style="max-width: 750px;
+                                 margin: auto;
+                                 height: 800px;
+                                 margin: 0 auto;margin-top: -8em;"></div>
+
+
+                        </div>
+
+
+                        <h:inputHidden id="hiddenname" value="#{chartModal.hiddenName}"/>
+                        <p:commandButton style="display: none" id="btn" ajax="false" update="false" action="#{chartModal.click()}" value="Update"></p:commandButton>
+
+                        <p:commandLink  id="ajax" action="donutChart.xhtml?faces-redirect=true">
+                        </p:commandLink>
+                    </div>
+                    <script src="../../resources/js/firstchart.js" />
+                    <script type="text/javascript">
+                        var currheight = document.documentElement.clientHeight;
+                        window.onresize = function () {
+                            if (currheight !== document.documentElement.clientHeight) {
+                                location.replace(location.href);
+                            }
+
+                        }
+                    </script>
+                </h:form>
+            </div></div>
+    </ui:define>
+</ui:composition>
